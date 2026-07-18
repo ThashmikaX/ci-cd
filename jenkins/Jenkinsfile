@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    DOCKERHUB_USER = 'YOUR_DOCKERHUB_USER'
+    DOCKERHUB_USER = 'thashmikax'
     BACKEND_IMAGE  = "${DOCKERHUB_USER}/taskforge-backend"
     FRONTEND_IMAGE = "${DOCKERHUB_USER}/taskforge-frontend"
     TAG            = "${env.BUILD_NUMBER}"
