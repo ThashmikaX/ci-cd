@@ -1,0 +1,4 @@
+# Copy to terraform.tfvars and fill in your VM's real values.
+vm_host               = "192.168.56.10"
+vm_user               = "ubuntu"
+ssh_private_key_path  = "~/.ssh/id_rsa"
