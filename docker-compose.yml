@@ -1,0 +1,28 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./app/backend
+    restart: unless-stopped
+    environment:
+      MONGO_URI: mongodb://mongo:27017/taskforge
+      PORT: 4000
+    depends_on:
+      - mongo
+    ports:
+      - "4000:4000"
+
+  frontend:
+    build: ./app/frontend
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
