@@ -1,0 +1,42 @@
+---
+# Configures the hand-built VM as a single-node Kubernetes cluster.
+# k3s is chosen over kubeadm: one install step gives us containerd, the
+# Traefik ingress controller, the local-path storage provisioner, and
+# metrics-server (needed for the backend HPA) — everything the proposal's
+# "Kubernetes prerequisites" step needs, with nothing hand-configured.
+- name: Provision k3s single-node cluster on the TaskForge VM
+  hosts: taskforge_vm
+  become: true
+  vars:
+    kubeconfig_local_path: "{{ playbook_dir }}/../kubeconfig"
+
+  tasks:
+    - name: Install k3s
+      ansible.builtin.shell: curl -sfL https://get.k3s.io | sh -
+      args:
+        creates: /usr/local/bin/k3s
+
+    - name: Ensure k3s service is enabled and running
+      ansible.builtin.systemd:
+        name: k3s
+        enabled: true
+        state: started
+
+    - name: Wait for the kubeconfig to be written
+      ansible.builtin.wait_for:
+        path: /etc/rancher/k3s/k3s.yaml
+        state: present
+
+    - name: Fetch kubeconfig to the control machine
+      ansible.builtin.fetch:
+        src: /etc/rancher/k3s/k3s.yaml
+        dest: "{{ kubeconfig_local_path }}"
+        flat: true
+
+    - name: Point the fetched kubeconfig at the VM's real address
+      delegate_to: localhost
+      become: false
+      ansible.builtin.replace:
+        path: "{{ kubeconfig_local_path }}"
+        regexp: 'https://127\.0\.0\.1:6443'
+        replace: "https://{{ ansible_host | default(inventory_hostname) }}:6443"
