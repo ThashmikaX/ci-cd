@@ -5,7 +5,7 @@
 # metrics-server (needed for the backend HPA) — everything the proposal's
 # "Kubernetes prerequisites" step needs, with nothing hand-configured.
 - name: Provision k3s single-node cluster on the TaskForge VM
-  hosts: taskforge_vm
+  hosts: all
   become: true
   vars:
     kubeconfig_local_path: "{{ playbook_dir }}/../kubeconfig"
@@ -38,5 +38,5 @@
       become: false
       ansible.builtin.replace:
         path: "{{ kubeconfig_local_path }}"
-        regexp: 'https://127\.0\.0\.1:6443'
-        replace: "https://{{ ansible_host | default(inventory_hostname) }}:6443"
+        regexp: 'https://(127\.0\.0\.1|localhost):6443'
+        replace: "https://{{ inventory_hostname }}:6443"
