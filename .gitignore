@@ -1,1 +1,4 @@
 kubeconfig
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
