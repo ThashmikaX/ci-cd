@@ -27,9 +27,9 @@ pipeline {
           dir(TF_DIR) {
             sh """
               terraform plan -input=false \
-                -var vm_host=${params.VM_HOST} \
-                -var vm_user=${params.VM_USER} \
-                -var ssh_private_key_path=\$SSH_KEY
+                -var "vm_host=${params.VM_HOST}" \
+                -var "vm_user=${params.VM_USER}" \
+                -var "ssh_private_key_path=\$SSH_KEY"
             """
           }
         }
@@ -48,9 +48,9 @@ pipeline {
           dir(TF_DIR) {
             sh """
               terraform apply -input=false -auto-approve \
-                -var vm_host=${params.VM_HOST} \
-                -var vm_user=${params.VM_USER} \
-                -var ssh_private_key_path=\$SSH_KEY
+                -var "vm_host=${params.VM_HOST}" \
+                -var "vm_user=${params.VM_USER}" \
+                -var "ssh_private_key_path=\$SSH_KEY"
             """
           }
         }
