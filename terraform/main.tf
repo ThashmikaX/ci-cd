@@ -41,6 +41,9 @@ resource "null_resource" "configure" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${var.vm_host},' --user '${var.vm_user}' --private-key '${pathexpand(var.ssh_private_key_path)}' '${path.module}/../ansible/playbook.yml'"
+    command     = "ansible-playbook -i '${var.vm_host},' --user '${var.vm_user}' --private-key '${pathexpand(var.ssh_private_key_path)}' '${path.module}/../ansible/playbook.yml'"
+    environment = {
+      ANSIBLE_HOST_KEY_CHECKING = "False"
+    }
   }
 }
