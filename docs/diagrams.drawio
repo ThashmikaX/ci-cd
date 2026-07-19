@@ -22,11 +22,14 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="3JcYtF_jzc_X8ZqSvD3h" name="Page-2">
+  <diagram id="3JcYtF_jzc_X8ZqSvD3h" name="k8s">
     <mxGraphModel dx="1414" dy="832" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="eoVZjPKwYFdlbiQZgRTb-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="kubectl port-forward -n taskforge svc/mongo 27017:27017" vertex="1">
+          <mxGeometry height="30" width="400" x="385" y="90" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>

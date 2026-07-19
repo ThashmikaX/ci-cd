@@ -30,7 +30,7 @@ export default function App() {
 
   return (
     <main style={{ maxWidth: 480, margin: '2rem auto', fontFamily: 'sans-serif' }}>
-      <h1>TaskForge</h1>
+      <h1>TaskForge 1.0.0</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={onAdd} style={{ display: 'flex', gap: 8 }}>
         <input
