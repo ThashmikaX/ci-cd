@@ -6,7 +6,7 @@ variable "vm_host" {
 variable "vm_user" {
   description = "SSH user on the VM"
   type        = string
-  default     = "ubuntu"
+  default     = "self_healing"
 }
 
 variable "ssh_private_key_path" {

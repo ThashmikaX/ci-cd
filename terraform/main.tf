@@ -22,7 +22,7 @@ resource "null_resource" "bootstrap" {
     type        = "ssh"
     host        = var.vm_host
     user        = var.vm_user
-    private_key = file(var.ssh_private_key_path)
+    private_key = file(pathexpand(var.ssh_private_key_path))
   }
 
   provisioner "remote-exec" {
@@ -41,6 +41,6 @@ resource "null_resource" "configure" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${var.vm_host},' --user ${var.vm_user} --private-key ${var.ssh_private_key_path} ${path.module}/../ansible/playbook.yml"
+    command = "ansible-playbook -i '${var.vm_host},' --user ${var.vm_user} --private-key ${pathexpand(var.ssh_private_key_path)} ${path.module}/../ansible/playbook.yml"
   }
 }
