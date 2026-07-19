@@ -35,6 +35,18 @@ pipeline {
         }
       }
     }
+
+    stage('Deploy') {
+      steps {
+        withCredentials([file(credentialsId: 'taskforge-kubeconfig', variable: 'KUBECONFIG')]) {
+          sh 'kubectl apply -f k8s/'
+          sh "kubectl set image deployment/backend backend=${BACKEND_IMAGE}:${TAG} -n taskforge"
+          sh "kubectl set image deployment/frontend frontend=${FRONTEND_IMAGE}:${TAG} -n taskforge"
+          sh 'kubectl rollout status deployment/backend -n taskforge --timeout=120s'
+          sh 'kubectl rollout status deployment/frontend -n taskforge --timeout=120s'
+        }
+      }
+    }
   }
 
   post {
