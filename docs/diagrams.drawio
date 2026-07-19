@@ -1,0 +1,25 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="TtkLQK8Q9vlSkR1JW7f4">
+    <mxGraphModel dx="1664" dy="979" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vGL5r9Kn3q6MbAQNf-LS-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;Terraform Steps&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="205" x="482" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="vGL5r9Kn3q6MbAQNf-LS-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;null_resource.bootstrap:&amp;nbsp;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="230" x="70" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="vGL5r9Kn3q6MbAQNf-LS-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 20px;&quot;&gt;SSHes into the VM and installs python3 (Ansible&#39;s SSH transport needs it on the remote end). Retriggers if vm_host changes.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="800" x="300" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="vGL5r9Kn3q6MbAQNf-LS-4" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;null_resource.configure:&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="230" x="70" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="vGL5r9Kn3q6MbAQNf-LS-5" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;div&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;runs ansible-playbook against the VM to install k3s. Retriggers whenever ansible/playbook.yml&#39;s contents change (via filemd5), so editing the playbook and re-applying&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 20px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;picks up the change automatically.&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="800" x="300" y="230" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
