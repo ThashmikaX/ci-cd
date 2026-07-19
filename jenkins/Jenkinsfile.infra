@@ -1,0 +1,60 @@
+pipeline {
+  agent any
+
+  parameters {
+    string(name: 'VM_HOST', defaultValue: '10.50.20.100', description: 'IP of the TaskForge VM')
+    string(name: 'VM_USER', defaultValue: 'self_healing', description: 'SSH user on the VM')
+  }
+
+  environment {
+    TF_DIR = 'terraform'
+  }
+
+  stages {
+    stage('Checkout') {
+      steps { checkout scm }
+    }
+
+    stage('Terraform Init') {
+      steps {
+        dir(TF_DIR) { sh 'terraform init -input=false' }
+      }
+    }
+
+    stage('Terraform Plan') {
+      steps {
+        withCredentials([sshUserPrivateKey(credentialsId: 'taskforge-vm-ssh', keyFileVariable: 'SSH_KEY')]) {
+          dir(TF_DIR) {
+            sh """
+              terraform plan -input=false \
+                -var vm_host=${params.VM_HOST} \
+                -var vm_user=${params.VM_USER} \
+                -var ssh_private_key_path=\$SSH_KEY
+            """
+          }
+        }
+      }
+    }
+
+    stage('Approve') {
+      steps {
+        input message: "Apply Terraform changes against ${params.VM_HOST}?"
+      }
+    }
+
+    stage('Terraform Apply') {
+      steps {
+        withCredentials([sshUserPrivateKey(credentialsId: 'taskforge-vm-ssh', keyFileVariable: 'SSH_KEY')]) {
+          dir(TF_DIR) {
+            sh """
+              terraform apply -input=false -auto-approve \
+                -var vm_host=${params.VM_HOST} \
+                -var vm_user=${params.VM_USER} \
+                -var ssh_private_key_path=\$SSH_KEY
+            """
+          }
+        }
+      }
+    }
+  }
+}

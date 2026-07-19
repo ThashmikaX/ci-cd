@@ -16,7 +16,7 @@ spec:
       containers:
         - name: frontend
           # Built and pushed by the Jenkins pipeline (see /jenkins/Jenkinsfile).
-          image: docker.io/YOUR_DOCKERHUB_USER/taskforge-frontend:latest
+          image: docker.io/thashmikax/taskforge-frontend:latest
           ports:
             - containerPort: 80
           resources:

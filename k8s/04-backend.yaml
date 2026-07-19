@@ -16,7 +16,7 @@ spec:
       containers:
         - name: backend
           # Built and pushed by the Jenkins pipeline (see /jenkins/Jenkinsfile).
-          image: docker.io/YOUR_DOCKERHUB_USER/taskforge-backend:latest
+          image: docker.io/thashmikax/taskforge-backend:latest
           ports:
             - containerPort: 4000
           envFrom:
